@@ -1,0 +1,35 @@
+{
+	"name": "ds_incoming_json_Payload",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_incoming_bob_authenticare2",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ds_Par_FileNm": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().ds_Par_FileNm",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('sqldbauditlogs/AuthenticareSampleData','/',formatDateTime(utcnow(),'yyyy'),'/',formatDateTime(utcnow(),'MM'),'/',formatDateTime(utcnow(),'dd'),'/',formatDateTime(utcnow(),'HH'),'')",
+					"type": "Expression"
+				},
+				"container": {
+					"value": "@concat('sqldbauditlogs','/')",
+					"type": "Expression"
+				}
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

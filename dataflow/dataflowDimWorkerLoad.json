@@ -1,0 +1,39 @@
+{
+	"name": "dataflowDimWorkerLoad",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_OUT_AzureSQLTable_c",
+						"type": "DatasetReference"
+					},
+					"name": "SourceStageClaim"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimWorker",
+						"type": "DatasetReference"
+					},
+					"name": "sourceDimWorker"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimWorker",
+						"type": "DatasetReference"
+					},
+					"name": "sinkDimWorker"
+				}
+			],
+			"transformations": [
+				{
+					"name": "LookupForWorker"
+				}
+			],
+			"script": "source(output(\n\t\tworkerFirstName as string,\n\t\tworkerMidName as string,\n\t\tworkerLastName as string,\n\t\tworkerXref as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select  [workerFirstName], [workerMidName], [workerLastName], [workerXref] From [dbo].[Stg_Claim]',\n\tformat: 'query') ~> SourceStageClaim\nsource(output(\n\t\tWorkerID as integer,\n\t\tWorkerFirstName as string,\n\t\tWorkerMidName as string,\n\t\tWorkerLastName as string,\n\t\tWorkerXRef as decimal(18,0)\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tformat: 'table') ~> sourceDimWorker\nSourceStageClaim, sourceDimWorker lookup(SourceStageClaim@workerFirstName == sourceDimWorker@WorkerFirstName\n\t&& SourceStageClaim@workerMidName == sourceDimWorker@WorkerMidName\n\t&& SourceStageClaim@workerLastName == sourceDimWorker@WorkerLastName\n\t&& toInteger(SourceStageClaim@workerXref) == sourceDimWorker@WorkerXRef,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupForWorker\nLookupForWorker sink(input(\n\t\tWorkerID as integer,\n\t\tWorkerFirstName as string,\n\t\tWorkerMidName as string,\n\t\tWorkerLastName as string,\n\t\tWorkerXRef as decimal(18,0)\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tWorkerFirstName = SourceStageClaim@workerFirstName,\n\t\tWorkerMidName = SourceStageClaim@workerMidName,\n\t\tWorkerLastName = SourceStageClaim@workerLastName,\n\t\tWorkerXRef = SourceStageClaim@workerXref\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sinkDimWorker"
+		}
+	}
+}

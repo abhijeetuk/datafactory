@@ -1,0 +1,39 @@
+{
+	"name": "dataflowDimProviderLoad",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_OUT_AzureSQLTable_c",
+						"type": "DatasetReference"
+					},
+					"name": "SourceStageClaim"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimProvider",
+						"type": "DatasetReference"
+					},
+					"name": "sourceDimProvider"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimProvider",
+						"type": "DatasetReference"
+					},
+					"name": "sinkDimProvider"
+				}
+			],
+			"transformations": [
+				{
+					"name": "LookupForProvider"
+				}
+			],
+			"script": "source(output(\n\t\tProviderName as string,\n\t\tProviderXref as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select  [ProviderName], [ProviderXref] From [dbo].[Stg_Claim]',\n\tformat: 'query') ~> SourceStageClaim\nsource(output(\n\t\tProviderFullName as string,\n\t\tProviderXRef as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select [ProviderFullName], [ProviderXRef] From [dbo].[DimProvider]',\n\tformat: 'query') ~> sourceDimProvider\nSourceStageClaim, sourceDimProvider lookup(ProviderName == ProviderFullName\n\t&& SourceStageClaim@ProviderXref == sourceDimProvider@ProviderXRef,\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupForProvider\nLookupForProvider sink(input(\n\t\tProviderID as integer,\n\t\tProviderFirstname as string,\n\t\tProviderMiddlename as string,\n\t\tProviderLastName as string,\n\t\tProviderFullName as string,\n\t\tProviderXRef as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tProviderFullName = ProviderName,\n\t\tProviderXRef = SourceStageClaim@ProviderXref\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sinkDimProvider"
+		}
+	}
+}

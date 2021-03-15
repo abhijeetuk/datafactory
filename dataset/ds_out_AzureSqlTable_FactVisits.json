@@ -1,0 +1,112 @@
+{
+	"name": "ds_out_AzureSqlTable_FactVisits",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OUT_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "StateID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ProviderID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ServiceID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "AuthorizerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "WorkerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ConsumerID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EventID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ClaimID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "ClientID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "VisitINTimeStamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "VisitOutTimeStamp",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SourceCreationTS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "SourceLastUpdatedTS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "RecordCreationTS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "RecordLastUpdatedTS",
+				"type": "datetime",
+				"precision": 23,
+				"scale": 3
+			},
+			{
+				"name": "GroupClaimID",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "EntryMethod",
+				"type": "varchar"
+			},
+			{
+				"name": "Exception",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "FactVisits"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,30 @@
+{
+	"name": "trg_EventBased_HourlyExecution",
+	"properties": {
+		"description": "AuthenticareSampleData",
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline-Master-Dynamic-Load",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"SourceFileName": "@triggerBody().fileName",
+					"SourceFolderPath": "@triggerBody().folderPath"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/adfsqldbauditlogs/blobs/AuthenticareSampleData/",
+			"blobPathEndsWith": "authenticatebulkdata.json",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/363c46ea-7ba9-4b41-9583-d85e1e16b346/resourceGroups/authenticare2/providers/Microsoft.Storage/storageAccounts/authenticare1",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

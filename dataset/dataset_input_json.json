@@ -1,0 +1,737 @@
+{
+	"name": "dataset_input_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Input_Blob_ACR17",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ds_Par_FileName": {
+				"type": "string"
+			}
+		},
+		"folder": {
+			"name": "MergedExcelsToJson"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@dataset().ds_Par_FileName",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('inputdata','/',formatDateTime(utcnow(),'yyyy'),'/',formatDateTime(utcnow(),'MM'),'/',formatDateTime(utcnow(),'dd'),'')",
+					"type": "Expression"
+				},
+				"container": "jsonpayload"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"EventAppointmentData": {
+					"type": "object",
+					"properties": {
+						"EventAppointmentRecs": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"JurisdictionCode": {
+										"type": "string"
+									},
+									"EventID": {
+										"type": "string"
+									},
+									"ApptStart": {
+										"type": "string"
+									},
+									"ApptEnd": {
+										"type": "string"
+									},
+									"Status": {
+										"type": "string"
+									},
+									"ClaimXRef": {
+										"type": "null"
+									},
+									"LateVisitNotified": {
+										"type": "string"
+									},
+									"LateVisitAcknowledgedBy": {
+										"type": "null"
+									},
+									"MissedVisitNotified": {
+										"type": "string"
+									},
+									"MissedVisitAcknowledgedBy": {
+										"type": "null"
+									},
+									"MissedVisitCode": {
+										"type": "string"
+									},
+									"MissedVisitCodeUpdatedBy": {
+										"type": "string"
+									},
+									"LateReasonCode": {
+										"type": "string"
+									},
+									"LateReasonDesc": {
+										"type": "null"
+									},
+									"EAPrimaryWorkerXRef": {
+										"type": "string"
+									},
+									"EABackupWorkerXRef": {
+										"type": "null"
+									},
+									"EAProviderXRef": {
+										"type": "string"
+									},
+									"EAServiceXRef": {
+										"type": "string"
+									},
+									"EAPayerXRef": {
+										"type": "string"
+									},
+									"EAAuthorizationXRef": {
+										"type": "string"
+									},
+									"SK_EAConsumerXRef": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"ConfigItemsData": {
+					"type": "object",
+					"properties": {
+						"ConfigItemsRecs": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"JurisdictionCode": {
+										"type": "string"
+									},
+									"Path": {
+										"type": "string"
+									},
+									"ItemName": {
+										"type": "string"
+									},
+									"Language": {
+										"type": "string"
+									},
+									"ItemType": {
+										"type": "string"
+									},
+									"Value": {
+										"type": "string"
+									},
+									"Documentation": {
+										"type": "null"
+									}
+								}
+							}
+						}
+					}
+				},
+				"ClaimExceptionData": {
+					"type": "object",
+					"properties": {
+						"ClaimExceptionRecs": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"JurisdictionCode": {
+										"type": "string"
+									},
+									"ClaimID": {
+										"type": "string"
+									},
+									"Exception": {
+										"type": "string"
+									},
+									"SystemExceptions": {
+										"type": "string"
+									},
+									"ExportTS": {
+										"type": "string"
+									},
+									"ClaimExceptionStatusFlag": {
+										"type": "string"
+									},
+									"CreationTS": {
+										"type": "string"
+									},
+									"FlaggedHistoryTS": {
+										"type": "string"
+									},
+									"LastUpdatedTimeStamp": {
+										"type": "string"
+									}
+								}
+							}
+						}
+					}
+				},
+				"ClaimAuditData": {
+					"type": "object",
+					"properties": {
+						"ClaimAuditRecs": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"JurisdictionCode": {
+										"type": "string"
+									},
+									"ClaimID": {
+										"type": "string"
+									},
+									"ClaimXRef": {
+										"type": "string"
+									},
+									"ServiceXRef": {
+										"type": "string"
+									},
+									"AuthorizationXRef": {
+										"type": "string"
+									},
+									"ClaimStart": {
+										"type": "string"
+									},
+									"ClaimEnd": {
+										"type": "string"
+									},
+									"Status": {
+										"type": "string"
+									},
+									"Action": {
+										"type": "string"
+									},
+									"CreationTimestamp": {
+										"type": "string"
+									},
+									"CompletionTimestamp": {
+										"type": "null"
+									},
+									"TouchTimestamp": {
+										"type": "string"
+									},
+									"FilingSource": {
+										"type": "string"
+									},
+									"ProviderXRef": {
+										"type": "string"
+									},
+									"ProviderName": {
+										"type": "string"
+									},
+									"WorkerXRef": {
+										"type": "string"
+									},
+									"WorkerFirstName": {
+										"type": "string"
+									},
+									"WorkerMidName": {
+										"type": "null"
+									},
+									"WorkerLastName": {
+										"type": "string"
+									},
+									"bk_consumerXRef": {
+										"type": "null"
+									},
+									"bk_consumerFirstName": {
+										"type": "null"
+									},
+									"consumerMidName": {
+										"type": "null"
+									},
+									"consumerLastName": {
+										"type": "null"
+									},
+									"CaseManagerXRef": {
+										"type": "null"
+									},
+									"CaseManagerFirstName": {
+										"type": "null"
+									},
+									"CaseManagerMidName": {
+										"type": "null"
+									},
+									"CaseManagerLastName": {
+										"type": "null"
+									},
+									"RepresentativeXRef": {
+										"type": "string"
+									},
+									"RepresentativeFirstName": {
+										"type": "string"
+									},
+									"RepresentativeMidName": {
+										"type": "string"
+									},
+									"RepresentativeLastName": {
+										"type": "string"
+									},
+									"BillingConfirmed": {
+										"type": "null"
+									},
+									"UserName": {
+										"type": "string"
+									},
+									"LastUpdatedTimeStamp": {
+										"type": "string"
+									},
+									"ExportTS": {
+										"type": "string"
+									},
+									"AuditClaimStartTS": {
+										"type": "string"
+									},
+									"AuditClaimDeleteTS": {
+										"type": "string"
+									},
+									"ActualUnits": {
+										"type": "string"
+									},
+									"AuthUnits": {
+										"type": "string"
+									},
+									"UnitsEntered": {
+										"type": "null"
+									},
+									"AuthAdjstUnits": {
+										"type": "null"
+									},
+									"PaidUnits": {
+										"type": "null"
+									},
+									"Rate": {
+										"type": "string"
+									},
+									"ActualAmount": {
+										"type": "string"
+									},
+									"AuthAmount": {
+										"type": "string"
+									},
+									"BillableAmount": {
+										"type": "null"
+									},
+									"PaidAmount": {
+										"type": "string"
+									},
+									"Mileage": {
+										"type": "string"
+									},
+									"TravelTime": {
+										"type": "string"
+									},
+									"PayerXRef": {
+										"type": "string"
+									},
+									"ContactDuration": {
+										"type": "string"
+									},
+									"ClaimEditedToIncreaseUnits": {
+										"type": "string"
+									},
+									"SK_ConsumerFirstName": {
+										"type": "string"
+									},
+									"SK_ConsumerLastName": {
+										"type": "string"
+									},
+									"SK_ConsumerMidName": {
+										"type": "string"
+									},
+									"SK_ConsumerXRef": {
+										"type": "string"
+									},
+									"FMSAReviewDate": {
+										"type": "string"
+									},
+									"BackupWorker": {
+										"type": "string"
+									},
+									"IsMissingClockInorOut": {
+										"type": "string"
+									},
+									"ClientAttestation": {
+										"type": "string"
+									},
+									"VisitModification": {
+										"type": "string"
+									},
+									"ConsumerSignatureAvailable": {
+										"type": "string"
+									},
+									"CheckDate": {
+										"type": "string"
+									},
+									"OriginalSystemClaimFilingSource": {
+										"type": "null"
+									},
+									"ProviderMedicaid": {
+										"type": "null"
+									},
+									"ClaimConfirmed": {
+										"type": "null"
+									}
+								}
+							}
+						}
+					}
+				},
+				"ClaimData": {
+					"type": "object",
+					"properties": {
+						"ClaimRecs": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"JurisdictionCode": {
+										"type": "string"
+									},
+									"ClaimID": {
+										"type": "string"
+									},
+									"ClaimGroupID": {
+										"type": "string"
+									},
+									"RowNumber": {
+										"type": "string"
+									},
+									"LineNumber": {
+										"type": "string"
+									},
+									"ClaimXRef": {
+										"type": "string"
+									},
+									"ServiceXRef": {
+										"type": "string"
+									},
+									"AuthorizationXRef": {
+										"type": "string"
+									},
+									"ClaimStart": {
+										"type": "string"
+									},
+									"ClaimEnd": {
+										"type": "string"
+									},
+									"Status": {
+										"type": "string"
+									},
+									"bk_checkInPhone": {
+										"type": "null"
+									},
+									"bk_checkOutPhone": {
+										"type": "null"
+									},
+									"CreationTimestamp": {
+										"type": "string"
+									},
+									"CompletionTimestamp": {
+										"type": "null"
+									},
+									"TouchTimestamp": {
+										"type": "string"
+									},
+									"FilingSource": {
+										"type": "string"
+									},
+									"ProviderXRef": {
+										"type": "string"
+									},
+									"ProviderName": {
+										"type": "string"
+									},
+									"WorkerXRef": {
+										"type": "string"
+									},
+									"WorkerFirstName": {
+										"type": "string"
+									},
+									"WorkerMidName": {
+										"type": "null"
+									},
+									"WorkerLastName": {
+										"type": "string"
+									},
+									"bk_consumerXRef": {
+										"type": "null"
+									},
+									"bk_consumerFirstName": {
+										"type": "null"
+									},
+									"bk_consumerMidName": {
+										"type": "null"
+									},
+									"bk_consumerLastName": {
+										"type": "null"
+									},
+									"CaseManagerXRef": {
+										"type": "null"
+									},
+									"CaseManagerFirstName": {
+										"type": "null"
+									},
+									"CaseManagerMidName": {
+										"type": "null"
+									},
+									"CaseManagerLastName": {
+										"type": "null"
+									},
+									"RepresentativeXRef": {
+										"type": "string"
+									},
+									"RepresentativeFirstName": {
+										"type": "string"
+									},
+									"RepresentativeMidName": {
+										"type": "null"
+									},
+									"RepresentativeLastName": {
+										"type": "string"
+									},
+									"Emergency": {
+										"type": "string"
+									},
+									"MultiClientDiscount": {
+										"type": "string"
+									},
+									"AuthData": {
+										"type": "string"
+									},
+									"EventID": {
+										"type": "null"
+									},
+									"BillingConfirmed": {
+										"type": "string"
+									},
+									"CheckInVoicePrintFailed": {
+										"type": "string"
+									},
+									"CheckOutVoicePrintFailed": {
+										"type": "string"
+									},
+									"UserName": {
+										"type": "string"
+									},
+									"LastUpdatedAuditTimeStamp": {
+										"type": "string"
+									},
+									"CheckInAuthorizationFlag": {
+										"type": "null"
+									},
+									"CheckInAuthorizationData": {
+										"type": "null"
+									},
+									"CheckOutAuthorizationFlag": {
+										"type": "null"
+									},
+									"CheckOutAuthorizationData": {
+										"type": "null"
+									},
+									"ExportTS": {
+										"type": "string"
+									},
+									"ActualUnits": {
+										"type": "string"
+									},
+									"AuthUnits": {
+										"type": "string"
+									},
+									"UnitsEntered": {
+										"type": "null"
+									},
+									"AuthAdjstUnits": {
+										"type": "null"
+									},
+									"PaidUnits": {
+										"type": "null"
+									},
+									"Rate": {
+										"type": "string"
+									},
+									"ActualAmount": {
+										"type": "string"
+									},
+									"AuthAmount": {
+										"type": "string"
+									},
+									"BillableAmount": {
+										"type": "null"
+									},
+									"PaidAmount": {
+										"type": "string"
+									},
+									"Mileage": {
+										"type": "string"
+									},
+									"TravelTime": {
+										"type": "string"
+									},
+									"CheckInDataXML": {
+										"type": "null"
+									},
+									"CheckOutDataXML": {
+										"type": "null"
+									},
+									"bk_medicaidID": {
+										"type": "null"
+									},
+									"PayerXRef": {
+										"type": "string"
+									},
+									"ClaimSubmitterID": {
+										"type": "null"
+									},
+									"ServiceLineID": {
+										"type": "null"
+									},
+									"bk_checkInLocationLatitude": {
+										"type": "null"
+									},
+									"bk_checkOutLocationLatitude": {
+										"type": "null"
+									},
+									"bk_checkInLocationLongitude": {
+										"type": "null"
+									},
+									"bk_checkOutLocationLongitude": {
+										"type": "null"
+									},
+									"CheckInAddressType": {
+										"type": "string"
+									},
+									"CheckOutAddressType": {
+										"type": "string"
+									},
+									"CheckInAddressDesc": {
+										"type": "null"
+									},
+									"CheckOutAddressDesc": {
+										"type": "null"
+									},
+									"CheckInMobileCardXRef": {
+										"type": "null"
+									},
+									"CheckOutMobileCardXRef": {
+										"type": "null"
+									},
+									"DTBatchExportTS": {
+										"type": "string"
+									},
+									"ContactDuration": {
+										"type": "string"
+									},
+									"OverlappingClaims": {
+										"type": "null"
+									},
+									"ClaimReviewDate": {
+										"type": "string"
+									},
+									"ClaimEditedToIncreaseUnits": {
+										"type": "string"
+									},
+									"bk_consumerFullName": {
+										"type": "null"
+									},
+									"SK_CheckInLocationLatitude": {
+										"type": "string"
+									},
+									"SK_CheckInLocationLongitude": {
+										"type": "string"
+									},
+									"SK_CheckInPhone": {
+										"type": "string"
+									},
+									"SK_CheckOutLocationLatitude": {
+										"type": "string"
+									},
+									"SK_CheckOutLocationLongitude": {
+										"type": "string"
+									},
+									"SK_CheckOutPhone": {
+										"type": "string"
+									},
+									"SK_ConsumerFullName": {
+										"type": "string"
+									},
+									"SK_ConsumerFirstName": {
+										"type": "string"
+									},
+									"SK_ConsumerLastName": {
+										"type": "string"
+									},
+									"SK_ConsumerMidName": {
+										"type": "null"
+									},
+									"SK_ConsumerXRef": {
+										"type": "string"
+									},
+									"SK_MedicaidID": {
+										"type": "string"
+									},
+									"CheckInDataXMLKeyNum": {
+										"type": "null"
+									},
+									"CheckOutDataXMLKeyNum": {
+										"type": "null"
+									},
+									"FMSAReviewDate": {
+										"type": "string"
+									},
+									"BackupWorker": {
+										"type": "string"
+									},
+									"IsMissingClockInorOut": {
+										"type": "string"
+									},
+									"ClientAttestation": {
+										"type": "string"
+									},
+									"VisitModification": {
+										"type": "string"
+									},
+									"ConsumerSignatureAvailable": {
+										"type": "string"
+									},
+									"CheckDate": {
+										"type": "string"
+									},
+									"OriginalSystemClaimFilingSource": {
+										"type": "null"
+									},
+									"ProviderMedicaid": {
+										"type": "null"
+									},
+									"SettingOfCare": {
+										"type": "null"
+									},
+									"ClaimConfirmed": {
+										"type": "null"
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

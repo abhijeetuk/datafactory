@@ -1,0 +1,408 @@
+{
+	"name": "dataset_in_ExcelC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Input_Blob_ACR17",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Claim",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "C_CA_CEX.xls",
+				"folderPath": "inputdata/2021/02/26/input",
+				"container": "jsonpayload"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "JurisdictionCode",
+				"type": "String"
+			},
+			{
+				"name": "ClaimID",
+				"type": "String"
+			},
+			{
+				"name": "ClaimGroupID",
+				"type": "String"
+			},
+			{
+				"name": "RowNumber",
+				"type": "String"
+			},
+			{
+				"name": "LineNumber",
+				"type": "String"
+			},
+			{
+				"name": "ClaimXRef",
+				"type": "String"
+			},
+			{
+				"name": "ServiceXRef",
+				"type": "String"
+			},
+			{
+				"name": "AuthorizationXRef",
+				"type": "String"
+			},
+			{
+				"name": "ClaimStart",
+				"type": "String"
+			},
+			{
+				"name": "ClaimEnd",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "CreationTimestamp",
+				"type": "String"
+			},
+			{
+				"name": "CompletionTimestamp",
+				"type": "String"
+			},
+			{
+				"name": "TouchTimestamp",
+				"type": "String"
+			},
+			{
+				"name": "FilingSource",
+				"type": "String"
+			},
+			{
+				"name": "ProviderXRef",
+				"type": "String"
+			},
+			{
+				"name": "ProviderName",
+				"type": "String"
+			},
+			{
+				"name": "WorkerXRef",
+				"type": "String"
+			},
+			{
+				"name": "WorkerFirstName",
+				"type": "String"
+			},
+			{
+				"name": "WorkerMidName",
+				"type": "String"
+			},
+			{
+				"name": "WorkerLastName",
+				"type": "String"
+			},
+			{
+				"name": "CaseManagerXRef",
+				"type": "String"
+			},
+			{
+				"name": "CaseManagerFirstName",
+				"type": "String"
+			},
+			{
+				"name": "CaseManagerMidName",
+				"type": "String"
+			},
+			{
+				"name": "CaseManagerLastName",
+				"type": "String"
+			},
+			{
+				"name": "RepresentativeXRef",
+				"type": "String"
+			},
+			{
+				"name": "RepresentativeFirstName",
+				"type": "String"
+			},
+			{
+				"name": "RepresentativeMidName",
+				"type": "String"
+			},
+			{
+				"name": "RepresentativeLastName",
+				"type": "String"
+			},
+			{
+				"name": "Emergency",
+				"type": "String"
+			},
+			{
+				"name": "MultiClientDiscount",
+				"type": "String"
+			},
+			{
+				"name": "AuthData",
+				"type": "String"
+			},
+			{
+				"name": "EventID",
+				"type": "String"
+			},
+			{
+				"name": "BillingConfirmed",
+				"type": "String"
+			},
+			{
+				"name": "CheckInVoicePrintFailed",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutVoicePrintFailed",
+				"type": "String"
+			},
+			{
+				"name": "UserName",
+				"type": "String"
+			},
+			{
+				"name": "LastUpdatedAuditTimeStamp",
+				"type": "String"
+			},
+			{
+				"name": "CheckInAuthorizationFlag",
+				"type": "String"
+			},
+			{
+				"name": "CheckInAuthorizationData",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutAuthorizationFlag",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutAuthorizationData",
+				"type": "String"
+			},
+			{
+				"name": "ExportTS",
+				"type": "String"
+			},
+			{
+				"name": "ActualUnits",
+				"type": "String"
+			},
+			{
+				"name": "AuthUnits",
+				"type": "String"
+			},
+			{
+				"name": "UnitsEntered",
+				"type": "String"
+			},
+			{
+				"name": "AuthAdjstUnits",
+				"type": "String"
+			},
+			{
+				"name": "PaidUnits",
+				"type": "String"
+			},
+			{
+				"name": "Rate",
+				"type": "String"
+			},
+			{
+				"name": "ActualAmount",
+				"type": "String"
+			},
+			{
+				"name": "AuthAmount",
+				"type": "String"
+			},
+			{
+				"name": "BillableAmount",
+				"type": "String"
+			},
+			{
+				"name": "PaidAmount",
+				"type": "String"
+			},
+			{
+				"name": "Mileage",
+				"type": "String"
+			},
+			{
+				"name": "TravelTime",
+				"type": "String"
+			},
+			{
+				"name": "CheckInDataXML",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutDataXML",
+				"type": "String"
+			},
+			{
+				"name": "PayerXRef",
+				"type": "String"
+			},
+			{
+				"name": "ClaimSubmitterID",
+				"type": "String"
+			},
+			{
+				"name": "ServiceLineID",
+				"type": "String"
+			},
+			{
+				"name": "CheckInAddressType",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutAddressType",
+				"type": "String"
+			},
+			{
+				"name": "CheckInAddressDesc",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutAddressDesc",
+				"type": "String"
+			},
+			{
+				"name": "CheckInMobileCardXRef",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutMobileCardXRef",
+				"type": "String"
+			},
+			{
+				"name": "DTBatchExportTS",
+				"type": "String"
+			},
+			{
+				"name": "ContactDuration",
+				"type": "String"
+			},
+			{
+				"name": "OverlappingClaims",
+				"type": "String"
+			},
+			{
+				"name": "ClaimReviewDate",
+				"type": "String"
+			},
+			{
+				"name": "ClaimEditedToIncreaseUnits",
+				"type": "String"
+			},
+			{
+				"name": "SK_CheckInLocationLatitude",
+				"type": "String"
+			},
+			{
+				"name": "SK_CheckInLocationLongitude",
+				"type": "String"
+			},
+			{
+				"name": "SK_CheckInPhone",
+				"type": "String"
+			},
+			{
+				"name": "SK_CheckOutLocationLatitude",
+				"type": "String"
+			},
+			{
+				"name": "SK_CheckOutLocationLongitude",
+				"type": "String"
+			},
+			{
+				"name": "SK_CheckOutPhone",
+				"type": "String"
+			},
+			{
+				"name": "SK_ConsumerFullName",
+				"type": "String"
+			},
+			{
+				"name": "SK_ConsumerFirstName",
+				"type": "String"
+			},
+			{
+				"name": "SK_ConsumerLastName",
+				"type": "String"
+			},
+			{
+				"name": "SK_ConsumerMidName",
+				"type": "String"
+			},
+			{
+				"name": "SK_ConsumerXRef",
+				"type": "String"
+			},
+			{
+				"name": "SK_MedicaidID",
+				"type": "String"
+			},
+			{
+				"name": "CheckInDataXMLKeyNum",
+				"type": "String"
+			},
+			{
+				"name": "CheckOutDataXMLKeyNum",
+				"type": "String"
+			},
+			{
+				"name": "FMSAReviewDate",
+				"type": "String"
+			},
+			{
+				"name": "BackupWorker",
+				"type": "String"
+			},
+			{
+				"name": "IsMissingClockInorOut",
+				"type": "String"
+			},
+			{
+				"name": "ClientAttestation",
+				"type": "String"
+			},
+			{
+				"name": "VisitModification",
+				"type": "String"
+			},
+			{
+				"name": "ConsumerSignatureAvailable",
+				"type": "String"
+			},
+			{
+				"name": "CheckDate",
+				"type": "String"
+			},
+			{
+				"name": "OriginalSystemClaimFilingSource",
+				"type": "String"
+			},
+			{
+				"name": "ProviderMedicaid",
+				"type": "String"
+			},
+			{
+				"name": "SettingOfCare",
+				"type": "String"
+			},
+			{
+				"name": "ClaimConfirmed",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,91 @@
+{
+	"name": "pipeline-Master-Dynamic-Load",
+	"properties": {
+		"activities": [
+			{
+				"name": "Prepare Databases",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pipeline-Prepare-Databases",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Ingest Data To Staging area",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Prepare Databases",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pipeline-Ingest-Data-To-Staging",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Load Dimensions",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Ingest Data To Staging area",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pipeline-Load-Dimensions",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Load Facts",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Load Dimensions",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "pipeline-Load-Facts",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"parameters": {
+			"SourceFileName": {
+				"type": "string"
+			},
+			"SourceFolderPath": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2021-03-12T11:49:54Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

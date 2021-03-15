@@ -1,0 +1,24 @@
+{
+	"name": "ds_out_Json_CA",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_incoming_bob_authenticare2",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "MergedExcelsToJson"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CA11032021.json",
+				"folderPath": "AuthenticareSampleData/2021/03/11",
+				"container": "adfsqldbauditlogs"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

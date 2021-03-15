@@ -1,0 +1,32 @@
+{
+	"name": "dataflowDimClientLoad",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_OUT_AzureSQLTable_c",
+						"type": "DatasetReference"
+					},
+					"name": "sourceStgClaim"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimClient",
+						"type": "DatasetReference"
+					},
+					"name": "sinkDimClient"
+				}
+			],
+			"transformations": [
+				{
+					"name": "SetupSCDType1"
+				}
+			],
+			"script": "source(output(\n\t\tsk_consumerFullName as string,\n\t\tsk_consumerFirstName as string,\n\t\tsk_consumerLastName as string,\n\t\tsk_consumerMidName as string,\n\t\tsk_consumerXRef as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\n       [sk_consumerFullName]\\n      ,[sk_consumerFirstName]\\n      ,[sk_consumerLastName]\\n      ,[sk_consumerMidName]\\n      ,[sk_consumerXRef]\\nFROM [dbo].[Stg_Claim]',\n\tformat: 'query') ~> sourceStgClaim\nsourceStgClaim alterRow(upsertIf(1==1)) ~> SetupSCDType1\nSetupSCDType1 sink(input(\n\t\tClientID as integer,\n\t\tClientFirstname as string,\n\t\tClientMiddlename as string,\n\t\tClientLastName as string,\n\t\tClientFullName as string,\n\t\tClientXRef as string,\n\t\tLastModifiedDate as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:false,\n\tupdateable:false,\n\tupsertable:true,\n\tkeys:['ClientXRef'],\n\tformat: 'table',\n\tmapColumn(\n\t\tClientFullName = sk_consumerFullName,\n\t\tClientFirstname = sk_consumerFirstName,\n\t\tClientMiddlename = sk_consumerMidName,\n\t\tClientLastName = sk_consumerLastName,\n\t\tClientXRef = sk_consumerXRef\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sinkDimClient"
+		}
+	}
+}

@@ -1,0 +1,21 @@
+{
+	"name": "dataset_in_Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Input_Blob_ACR17",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "EA01032021.json",
+				"folderPath": "inputdata/2021/02/26/output",
+				"container": "jsonpayload"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

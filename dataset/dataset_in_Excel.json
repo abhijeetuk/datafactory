@@ -1,0 +1,108 @@
+{
+	"name": "dataset_in_Excel",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Input_Blob_ACR17",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "EAaa.xlsx",
+				"folderPath": "inputdata/2021/02/26/input",
+				"container": "jsonpayload"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "JurisdictionCode",
+				"type": "String"
+			},
+			{
+				"name": "EventID",
+				"type": "String"
+			},
+			{
+				"name": "ApptStart",
+				"type": "String"
+			},
+			{
+				"name": "ApptEnd",
+				"type": "String"
+			},
+			{
+				"name": "Status",
+				"type": "String"
+			},
+			{
+				"name": "ClaimXRef",
+				"type": "String"
+			},
+			{
+				"name": "LateVisitNotified",
+				"type": "String"
+			},
+			{
+				"name": "LateVisitAcknowledgedBy",
+				"type": "String"
+			},
+			{
+				"name": "MissedVisitNotified",
+				"type": "String"
+			},
+			{
+				"name": "MissedVisitAcknowledgedBy",
+				"type": "String"
+			},
+			{
+				"name": "MissedVisitCode",
+				"type": "String"
+			},
+			{
+				"name": "MissedVisitCodeUpdatedBy",
+				"type": "String"
+			},
+			{
+				"name": "LateReasonCode",
+				"type": "String"
+			},
+			{
+				"name": "LateReasonDesc",
+				"type": "String"
+			},
+			{
+				"name": "EAPrimaryWorkerXRef",
+				"type": "String"
+			},
+			{
+				"name": "EABackupWorkerXRef",
+				"type": "String"
+			},
+			{
+				"name": "EAProviderXRef",
+				"type": "String"
+			},
+			{
+				"name": "EAServiceXRef",
+				"type": "String"
+			},
+			{
+				"name": "EAPayerXRef",
+				"type": "String"
+			},
+			{
+				"name": "EAAuthorizationXRef",
+				"type": "String"
+			},
+			{
+				"name": "SK_EAConsumerXRef",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

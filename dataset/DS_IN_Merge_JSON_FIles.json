@@ -1,0 +1,129 @@
+{
+	"name": "DS_IN_Merge_JSON_FIles",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Input_Blob_ACR17",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "inputdata/2021/02/26",
+				"container": "jsonpayload"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"JurisdictionCode": {
+					"type": "string"
+				},
+				"ClaimID": {
+					"type": "integer"
+				},
+				"Exception": {
+					"type": "string"
+				},
+				"SystemExceptions": {
+					"type": "integer"
+				},
+				"ExportTS": {
+					"type": "string"
+				},
+				"ClaimExceptionStatusFlag": {
+					"type": "string"
+				},
+				"CreationTS": {
+					"type": "string"
+				},
+				"FlaggedHistoryTS": {
+					"type": "string"
+				},
+				"LastUpdatedTimeStamp": {
+					"type": "string"
+				},
+				"Path": {
+					"type": "string"
+				},
+				"ItemName": {
+					"type": "string"
+				},
+				"Language": {
+					"type": "integer"
+				},
+				"ItemType": {
+					"type": "integer"
+				},
+				"Value": {
+					"type": "string"
+				},
+				"Documentation": {
+					"type": "string"
+				},
+				"EventID": {
+					"type": "integer"
+				},
+				"ApptStart": {
+					"type": "string"
+				},
+				"ApptEnd": {
+					"type": "string"
+				},
+				"Status": {
+					"type": "integer"
+				},
+				"ClaimXRef": {
+					"type": "string"
+				},
+				"LateVisitNotified": {
+					"type": "string"
+				},
+				"LateVisitAcknowledgedBy": {
+					"type": "string"
+				},
+				"MissedVisitNotified": {
+					"type": "string"
+				},
+				"MissedVisitAcknowledgedBy": {
+					"type": "string"
+				},
+				"MissedVisitCode": {
+					"type": "null"
+				},
+				"MissedVisitCodeUpdatedBy": {
+					"type": "null"
+				},
+				"LateReasonCode": {
+					"type": "integer"
+				},
+				"LateReasonDesc": {
+					"type": "string"
+				},
+				"EAPrimaryWorkerXRef": {
+					"type": "integer"
+				},
+				"EABackupWorkerXRef": {
+					"type": "null"
+				},
+				"EAProviderXRef": {
+					"type": "string"
+				},
+				"EAServiceXRef": {
+					"type": "string"
+				},
+				"EAPayerXRef": {
+					"type": "null"
+				},
+				"EAAuthorizationXRef": {
+					"type": "null"
+				},
+				"SK_EAConsumerXRef": {
+					"type": "integer"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

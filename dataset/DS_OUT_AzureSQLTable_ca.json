@@ -1,0 +1,17 @@
+{
+	"name": "DS_OUT_AzureSQLTable_ca",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_OUT_AzureSqlDatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "Stg_ClaimAudit"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

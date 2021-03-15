@@ -1,0 +1,73 @@
+{
+	"name": "dataflowFactVisitLoad",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DS_OUT_AzureSQLTable_c",
+						"type": "DatasetReference"
+					},
+					"name": "sourceStageClaim"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_OUT_AzureSQLTable_cex",
+						"type": "DatasetReference"
+					},
+					"name": "sourceStageClaimException"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimWorker",
+						"type": "DatasetReference"
+					},
+					"name": "sourceDimWorker"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimProvider",
+						"type": "DatasetReference"
+					},
+					"name": "sourceDimProvider"
+				},
+				{
+					"dataset": {
+						"referenceName": "DS_Out_AzureSqlTable_DimClient",
+						"type": "DatasetReference"
+					},
+					"name": "sourceDimClient"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DS_OUT_AzureSqlTable_FactVisitz",
+						"type": "DatasetReference"
+					},
+					"name": "sinkFactVisits",
+					"rejectedDataLinkedService": {
+						"referenceName": "LinkedService_API_Reference_Blob",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "ClaimJoinsExceptions"
+				},
+				{
+					"name": "LookupWithDimWorker"
+				},
+				{
+					"name": "LookupWithDimProvider"
+				},
+				{
+					"name": "LookupWithDimClient"
+				}
+			],
+			"script": "source(output(\n\t\tjurisdictionCode as string,\n\t\tWorkerXRef as string,\n\t\tProviderXRef as string,\n\t\tsk_consumerXRef as string,\n\t\tclaimXRef as string,\n\t\tEventID as string,\n\t\tClaimID as integer,\n\t\tfillingSource as string,\n\t\tcreationTimestamp as timestamp,\n\t\tcompletionTimestamp as timestamp\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'Select Top (100)\\n      [jurisdictionCode]\\n     ,[WorkerXRef]\\n     ,[ProviderXRef]\\n     ,[sk_consumerXRef]\\n     ,[claimXRef]\\n     ,[EventID]\\n     ,TRY_CAST(claimID AS Int) as ClaimID\\n     ,[fillingSource]\\n     ,TRY_CAST(creationTimestamp AS Datetime) as creationTimestamp\\n     ,TRY_CAST(completionTimestamp AS Datetime) as completionTimestamp\\nFROM [dbo].[Stg_Claim]',\n\tformat: 'query') ~> sourceStageClaim\nsource(output(\n\t\tjurisdictionCode as string,\n\t\tclaimID as string,\n\t\texception as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT Top (100)\\n       [jurisdictionCode]\\n      ,[claimID]\\n      ,[exception]\\nFROM [dbo].[Stg_ClaimException]',\n\tformat: 'query') ~> sourceStageClaimException\nsource(output(\n\t\tWorkerID as integer,\n\t\tWorkerXRef as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\n       [WorkerID]\\n      ,[WorkerXRef]\\n  FROM [dbo].[DimWorker]',\n\tformat: 'query') ~> sourceDimWorker\nsource(output(\n\t\tProviderID as integer,\n\t\tProviderXRef as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\n [ProviderID]      \\n,[ProviderXRef]\\n FROM [dbo].[DimProvider]',\n\tformat: 'query') ~> sourceDimProvider\nsource(output(\n\t\tClientID as integer,\n\t\tClientXRef as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tisolationLevel: 'READ_UNCOMMITTED',\n\tquery: 'SELECT \\n       [ClientID]\\n      ,[ClientXRef]\\n  FROM [dbo].[DimClient]',\n\tformat: 'query') ~> sourceDimClient\nsourceStageClaim, sourceStageClaimException join(trim(sourceStageClaim@jurisdictionCode, '') == trim(sourceStageClaimException@jurisdictionCode, ''),\n\tjoinType:'left',\n\tbroadcast: 'auto')~> ClaimJoinsExceptions\nClaimJoinsExceptions, sourceDimWorker lookup(trim(sourceStageClaim@WorkerXRef,'') == trim(sourceDimWorker@WorkerXRef,''),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupWithDimWorker\nLookupWithDimWorker, sourceDimProvider lookup(trim(sourceStageClaim@ProviderXRef,'') == trim(sourceDimProvider@ProviderXRef,''),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupWithDimProvider\nLookupWithDimProvider, sourceDimClient lookup(trim(sk_consumerXRef,'') == trim(ClientXRef,''),\n\tmultiple: false,\n\tpickup: 'any',\n\tbroadcast: 'auto')~> LookupWithDimClient\nLookupWithDimClient sink(input(\n\t\tWorkerID as integer,\n\t\tProviderID as integer,\n\t\tClientID as integer,\n\t\tClaimID as integer,\n\t\tVisitINTimeStamp as timestamp,\n\t\tVisitOutTimeStamp as timestamp,\n\t\tSourceCreationTS as timestamp,\n\t\tSourceLastUpdatedTS as timestamp,\n\t\tRecordCreationTS as timestamp,\n\t\tRecordLastUpdatedTS as timestamp,\n\t\tEntryMethod as string,\n\t\tExceptionReason as string,\n\t\tExceptionSevirity as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tformat: 'table',\n\tmapColumn(\n\t\tWorkerID,\n\t\tProviderID,\n\t\tClientID,\n\t\tClaimID = sourceStageClaim@ClaimID,\n\t\tVisitINTimeStamp = creationTimestamp,\n\t\tVisitOutTimeStamp = completionTimestamp,\n\t\tEntryMethod = fillingSource,\n\t\tExceptionReason = exception\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\terrorHandlingOption: 'stopOnFirstError') ~> sinkFactVisits"
+		}
+	}
+}

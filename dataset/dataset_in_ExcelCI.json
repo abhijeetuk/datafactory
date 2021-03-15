@@ -1,0 +1,52 @@
+{
+	"name": "dataset_in_ExcelCI",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Input_Blob_ACR17",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet2",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "CI.xlsx",
+				"folderPath": "inputdata/2021/02/26/input",
+				"container": "jsonpayload"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "JurisdictionCode",
+				"type": "String"
+			},
+			{
+				"name": "Path",
+				"type": "String"
+			},
+			{
+				"name": "ItemName",
+				"type": "String"
+			},
+			{
+				"name": "Language",
+				"type": "String"
+			},
+			{
+				"name": "ItemType",
+				"type": "String"
+			},
+			{
+				"name": "Value",
+				"type": "String"
+			},
+			{
+				"name": "Documentation",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
