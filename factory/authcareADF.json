@@ -1,0 +1,9 @@
+{
+	"name": "authcareADF",
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "9071ebe7-da62-473d-9201-975366795ce3",
+		"tenantId": "cdf226d7-79fd-4290-a3a7-996968201a26"
+	}
+}
