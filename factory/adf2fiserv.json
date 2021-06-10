@@ -1,0 +1,9 @@
+{
+	"name": "adf2fiserv",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "2aee78a6-9a46-4ff2-8e29-87c9d89fd0bf",
+		"tenantId": "b600693d-796d-44c1-84b5-f948732771e2"
+	}
+}

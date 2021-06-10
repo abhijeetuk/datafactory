@@ -1,0 +1,80 @@
+{
+	"name": "SourceDataset_5e8",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "test2"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "age",
+				"type": "String"
+			},
+			{
+				"name": "sex",
+				"type": "String"
+			},
+			{
+				"name": "cp",
+				"type": "String"
+			},
+			{
+				"name": "trtbps",
+				"type": "String"
+			},
+			{
+				"name": "chol",
+				"type": "String"
+			},
+			{
+				"name": "fbs",
+				"type": "String"
+			},
+			{
+				"name": "restecg",
+				"type": "String"
+			},
+			{
+				"name": "thalachh",
+				"type": "String"
+			},
+			{
+				"name": "exng",
+				"type": "String"
+			},
+			{
+				"name": "oldpeak",
+				"type": "String"
+			},
+			{
+				"name": "slp",
+				"type": "String"
+			},
+			{
+				"name": "caa",
+				"type": "String"
+			},
+			{
+				"name": "thall",
+				"type": "String"
+			},
+			{
+				"name": "output",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
